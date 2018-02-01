@@ -1,0 +1,32 @@
+{
+  "name": "alexa-skill-sdk-for-azure-function",
+  "version": "1.0.0",
+  "description": "Alexa sdk for azure function",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RamjiP/alexa-skill-sdk-for-azure-function.git"
+  },
+  "keywords": [
+    "alexa",
+    "amazon",
+    "lambda",
+    "azure",
+    "function",
+    "sdk",
+    "skill"
+  ],
+  "author": "Ramji Piramanayagam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RamjiP/alexa-skill-sdk-for-azure-function/issues"
+  },
+  "homepage": "https://github.com/RamjiP/alexa-skill-sdk-for-azure-function#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "alexa-verifier": "^1.0.0"
+  }
+}
