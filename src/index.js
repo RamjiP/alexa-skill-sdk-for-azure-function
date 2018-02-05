@@ -10,7 +10,7 @@ var avsWrapper = {
         trackInvokedIntents: false,
         enforceVerifier: true,
         alexaAppId: process.env.ALEXA_APP_ID,
-        i18nSettings: i18nSettings,
+        i18nSettings: null,
         version: '1.0.0',
         name: 'alexa-azure-function'
     },
