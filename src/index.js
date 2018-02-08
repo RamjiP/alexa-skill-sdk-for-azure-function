@@ -17,13 +17,13 @@ var avsWrapper = {
     setup: function(opts){
 
         for (var k in this.options) {
-            if (opts[k]) {
+            if (opts.hasOwnProperty(k)) {
                 this.options[k] = opts[k];
             }
         }
         this.e = event(this.options.azureReq);
         this.c = context(this.options.azureCtx, this.options.version, this.options.name);
-        this.r = azureReq;
+        this.r = this.options.azureReq;
         this.handlers = this.options.handlers;
     },
 
@@ -31,11 +31,13 @@ var avsWrapper = {
         var Alexa = require('alexa-sdk');
 
         var alexa = Alexa.handler(event, ctx, callback);
-        alexa.i18n.init({
-            interpolation: this.options.i18nSettings.interpolation
-        });
+        if (this.options.i18nSettings){
+            alexa.i18n.init({
+                interpolation: this.options.i18nSettings.interpolation
+            });
+            alexa.resources = this.options.i18nSettings.languageStrings;
+        }
         alexa.appId = this.options.alexaAppId;
-        alexa.resources = this.options.i18nSettings.languageStrings;
         this.handlers.push({':responseReady' : responseReady(this)});
         alexa.registerHandlers.apply(null, this.handlers);
         alexa.execute();
@@ -43,7 +45,7 @@ var avsWrapper = {
 
     execute: function(callback){
         var current = this;
-        verifier.verify(current.r, options.verifier, function(err) {
+        verifier.verify(current.r, current.options.enforceVerifier, function(err) {
             if (err) {
                 callback(err);
                 return;
