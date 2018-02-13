@@ -23,6 +23,7 @@ var avsWrapper = {
         }
         this.e = event(this.options.azureReq);
         this.c = context(this.options.azureCtx, this.options.version, this.options.name);
+        this.e._context = this.c;
         this.r = azureReq;
         this.handlers = this.options.handlers;
     },
