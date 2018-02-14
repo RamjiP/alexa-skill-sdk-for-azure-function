@@ -57,7 +57,7 @@ var responseReady = function (wrapper) {
 
     return function () {
         var res = this.handler.response;
-        var req = wrapper.r.body.request;
+        var req = wrapper.options.azureReq.body.request;
 
         if (wrapper.options.trackInvokedIntents) {
             if (req.intent) {
