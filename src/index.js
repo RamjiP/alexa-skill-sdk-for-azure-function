@@ -24,8 +24,6 @@ var avsWrapper = {
         this.e = event(this.options.azureReq);
         this.c = context(this.options.azureCtx, this.options.version, this.options.name);
         this.e._context = this.c;
-        this.r = azureReq;
-        this.handlers = this.options.handlers;
     },
 
     lambdaStyleHandler: function(event, ctx, callback) {
@@ -37,20 +35,20 @@ var avsWrapper = {
         });
         alexa.appId = this.options.alexaAppId;
         alexa.resources = this.options.i18nSettings.languageStrings;
-        this.handlers.push({':responseReady' : responseReady(this)});
+        this.options.handlers.push({':responseReady' : responseReady(this)});
         alexa.registerHandlers.apply(null, this.handlers);
         alexa.execute();
     },
 
     execute: function(callback){
-        var current = this;
-        verifier.verify(current.r, options.verifier, function(err) {
+        var me = this;
+        verifier.verify(me.options.azureReq, me.options.verifier, function(err) {
             if (err) {
                 callback(err);
                 return;
             }
             
-            current.lambdaStyleHandler(current.e, current.c, callback);
+            me.lambdaStyleHandler(me.e, me.options.azureCtx, callback);
         });
     }
 };
