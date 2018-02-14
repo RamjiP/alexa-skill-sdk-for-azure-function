@@ -36,7 +36,7 @@ var avsWrapper = {
         alexa.appId = this.options.alexaAppId;
         alexa.resources = this.options.i18nSettings.languageStrings;
         this.options.handlers.push({':responseReady' : responseReady(this)});
-        alexa.registerHandlers.apply(null, this.handlers);
+        alexa.registerHandlers.apply(null, this.options.handlers);
         alexa.execute();
     },
 
