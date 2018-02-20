@@ -49,7 +49,7 @@ var avsWrapper = {
                 callback(err);
                 return;
             }
-
+            
             me.lambdaStyleHandler(me.e, me.options.azureCtx, callback);
         });
     }
