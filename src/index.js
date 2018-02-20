@@ -17,7 +17,7 @@ var avsWrapper = {
     setup: function(opts){
 
         for (var k in this.options) {
-            if (opts[k]) {
+            if (opts.hasOwnProperty(k)) {
                 this.options[k] = opts[k];
             }
         }
@@ -30,11 +30,13 @@ var avsWrapper = {
         var Alexa = require('alexa-sdk');
 
         var alexa = Alexa.handler(event, ctx, callback);
-        alexa.i18n.init({
-            interpolation: this.options.i18nSettings.interpolation
-        });
+        if (this.options.i18nSettings){
+            alexa.i18n.init({
+                interpolation: this.options.i18nSettings.interpolation
+            });
+            alexa.resources = this.options.i18nSettings.languageStrings;
+        }
         alexa.appId = this.options.alexaAppId;
-        alexa.resources = this.options.i18nSettings.languageStrings;
         this.options.handlers.push({':responseReady' : responseReady(this)});
         alexa.registerHandlers.apply(null, this.options.handlers);
         alexa.execute();
@@ -47,7 +49,7 @@ var avsWrapper = {
                 callback(err);
                 return;
             }
-            
+
             me.lambdaStyleHandler(me.e, me.options.azureCtx, callback);
         });
     }
