@@ -14,10 +14,10 @@ var avsWrapper = {
         version: '1.0.0',
         name: 'alexa-azure-function'
     },
-    setup: function(opts){
+    setup: function (opts) {
 
         for (var k in this.options) {
-            if (opts[k]) {
+            if (opts.hasOwnProperty(k)) {
                 this.options[k] = opts[k];
             }
         }
@@ -26,7 +26,7 @@ var avsWrapper = {
         this.e._context = this.c;
     },
 
-    lambdaStyleHandler: function(event, ctx, callback) {
+    lambdaStyleHandler: function (event, ctx, callback) {
         var Alexa = require('alexa-sdk');
 
         var alexa = Alexa.handler(event, ctx, callback);
@@ -35,19 +35,19 @@ var avsWrapper = {
         });
         alexa.appId = this.options.alexaAppId;
         alexa.resources = this.options.i18nSettings.languageStrings;
-        this.options.handlers.push({':responseReady' : responseReady(this)});
+        this.options.handlers.push({ ':responseReady': responseReady(this) });
         alexa.registerHandlers.apply(null, this.options.handlers);
         alexa.execute();
     },
 
-    execute: function(callback){
+    execute: function (callback) {
         var me = this;
-        verifier.verify(me.options.azureReq, me.options.verifier, function(err) {
+        verifier.verify(me.options.azureReq, me.options.verifier, function (err) {
             if (err) {
                 callback(err);
                 return;
             }
-            
+
             me.lambdaStyleHandler(me.e, me.options.azureCtx, callback);
         });
     }
@@ -76,7 +76,7 @@ var responseReady = function (wrapper) {
         }
 
         // DONOT EDIT THIS............ IT IS A COPY OF THE UNDERLYING LIBRARY alexa-sdk
-        if(this.handler.state) {
+        if (this.handler.state) {
             this.handler.response.sessionAttributes.STATE = this.handler.state;
         }
 
@@ -84,7 +84,7 @@ var responseReady = function (wrapper) {
             return this.emit(':saveState');
         }
 
-        if(typeof this.callback === 'undefined') {
+        if (typeof this.callback === 'undefined') {
             this.context.succeed(this.handler.response);
         } else {
             this.callback(null, this.handler.response);
