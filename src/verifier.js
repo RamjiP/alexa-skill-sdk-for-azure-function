@@ -10,7 +10,7 @@ var verifier = {
         alexaVerifier(req.headers.signaturecertchainurl,
             req.headers.signature,
             req.rawBody,
-            callback   
+            callback
         );
     }
 };
