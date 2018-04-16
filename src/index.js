@@ -44,7 +44,7 @@ var avsWrapper = {
 
     execute: function (callback) {
         var me = this;
-        verifier.verify(me.options.azureReq, me.options.verifier, function (err) {
+        verifier.verify(me.options.azureReq, me.options.enforceVerifier, function (err) {
             if (err) {
                 callback(err);
                 return;
